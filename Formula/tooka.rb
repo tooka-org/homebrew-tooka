@@ -13,6 +13,6 @@ class Tooka < Formula
   end
 
   test do
-    assert_match "Tooka", shell_output("#{bin}/tooka --help")
+    assert_match "tooka #{version}", shell_output("#{bin}/tooka --version")
   end
 end
