@@ -2,7 +2,7 @@ class Tooka < Formula
   desc "Fast, rule-based CLI tool for organizing files"
   homepage "https://tooka.deno.dev"
   url "https://github.com/Benji377/tooka/archive/refs/tags/v1.0.2.tar.gz"
-  sha256 "REPLACE_WITH_TAR_GZ_SHA256"
+  sha256 "1b8b3219043d5292bd457721ab36858ee51533e8825bffd7f439848ef1fa596b"
   license "MIT"
   head "https://github.com/Benji377/tooka.git", branch: "main"
 
