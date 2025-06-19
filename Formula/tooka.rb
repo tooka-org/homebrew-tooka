@@ -3,13 +3,13 @@ class Tooka < Formula
   homepage "https://tooka.deno.dev"
   url "https://github.com/Benji377/tooka/archive/refs/tags/v1.0.2.tar.gz"
   sha256 "1b8b3219043d5292bd457721ab36858ee51533e8825bffd7f439848ef1fa596b"
-  license "MIT"
+  license "GPL-3.0-only"
   head "https://github.com/Benji377/tooka.git", branch: "main"
 
   depends_on "rust" => :build
 
   def install
-    system "cargo", "install", *std_cargo_args(path: "crates/tooka-cli")
+    system "cargo", "install", *std_cargo_args(path: "tooka-cli")
   end
 
   test do
