@@ -1,0 +1,40 @@
+name: Update Homebrew Formula
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *' # Daily at 3am UTC
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+    
+      - name: Get latest release version
+        id: get_version
+        run: |
+          version=$(curl -s https://api.github.com/repos/Benji377/tooka/releases/latest | jq -r .tag_name)
+          echo "version=${version}" >> $GITHUB_OUTPUT
+
+      - name: Download release tarball
+        run: |
+          curl -L "https://github.com/Benji377/tooka/archive/refs/tags/${{ steps.get_version.outputs.version }}.tar.gz" -o tooka.tar.gz
+          shasum -a 256 tooka.tar.gz > sha256.txt
+
+      - name: Patch Formula
+        run: |
+          sha256=$(cut -d ' ' -f 1 sha256.txt)
+          sed -i "s|url \".*\"|url \"https://github.com/Benji377/tooka/archive/refs/tags/${{ steps.get_version.outputs.version }}.tar.gz\"|" Formula/tooka.rb
+          sed -i "s|sha256 \".*\"|sha256 \"${sha256}\"|" Formula/tooka.rb
+          sed -i "s|version \".*\"|version \"${{ steps.get_version.outputs.version }}\"|" Formula/tooka.rb || true
+
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: "Bump Tooka formula to ${{ steps.get_version.outputs.version }}"
