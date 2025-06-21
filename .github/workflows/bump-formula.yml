@@ -19,18 +19,18 @@ jobs:
       - name: Get latest release version
         id: get_version
         run: |
-          version=$(curl -s https://api.github.com/repos/Benji377/tooka/releases/latest | jq -r .tag_name)
+          version=$(curl -s https://api.github.com/repos/tooka-org/cli/releases/latest | jq -r .tag_name)
           echo "version=${version}" >> $GITHUB_OUTPUT
 
       - name: Download release tarball
         run: |
-          curl -L "https://github.com/Benji377/tooka/archive/refs/tags/${{ steps.get_version.outputs.version }}.tar.gz" -o tooka.tar.gz
+          curl -L "https://github.com/tooka-org/cli/archive/refs/tags/${{ steps.get_version.outputs.version }}.tar.gz" -o tooka.tar.gz
           shasum -a 256 tooka.tar.gz > sha256.txt
 
       - name: Patch Formula
         run: |
           sha256=$(cut -d ' ' -f 1 sha256.txt)
-          sed -i "s|url \".*\"|url \"https://github.com/Benji377/tooka/archive/refs/tags/${{ steps.get_version.outputs.version }}.tar.gz\"|" Formula/tooka.rb
+          sed -i "s|url \".*\"|url \"https://github.com/tooka-org/cli/archive/refs/tags/${{ steps.get_version.outputs.version }}.tar.gz\"|" Formula/tooka.rb
           sed -i "s|sha256 \".*\"|sha256 \"${sha256}\"|" Formula/tooka.rb
           sed -i "s|version \".*\"|version \"${{ steps.get_version.outputs.version }}\"|" Formula/tooka.rb || true
 
