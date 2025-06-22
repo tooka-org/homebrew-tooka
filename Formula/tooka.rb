@@ -1,8 +1,8 @@
 class Tooka < Formula
   desc "Fast, rule-based CLI tool for organizing files"
   homepage "https://tooka.deno.dev"
-  url "https://github.com/tooka-org/cli/archive/refs/tags/v1.0.2.tar.gz"
-  sha256 "6cba33272f49cc46f07247cb4d607a8dcbf415a0bc0aa16798c2faea2482d01e"
+  url "https://github.com/tooka-org/cli/archive/refs/tags/v1.0.3.tar.gz"
+  sha256 "d7ce3d212a8acc5bd706ac48dc60318cbf1ae7769dbc5603b70b12fc4f60ce82"
   license "GPL-3.0-only"
   head "https://github.com/tooka-org/cli.git", branch: "main"
 
