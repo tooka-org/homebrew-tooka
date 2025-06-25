@@ -9,7 +9,8 @@ class Tooka < Formula
   depends_on "rust" => :build
 
   def install
-    system "cargo", "install"
+    system "cargo", "build", "--release"
+    bin.install "target/release/tooka"
   end
 
   test do
